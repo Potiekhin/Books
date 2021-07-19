@@ -1,5 +1,6 @@
 const express = require("express");
 const bodyParser = require("body-parser");
+const path = require('path')
 const fs = require("fs")
 const cors = require("cors")
 
@@ -9,7 +10,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cors())
 
-const dbPath = './db.json'
+const dbPath = path.join(__dirname,'db.json') 
 
 app.post("/", (req, res) => {
     if (!req.body) {
