@@ -39,11 +39,13 @@ app.post("/", (req, res) => {
 
 app.delete("/:id", (req, res) => {
     const { id } = req.params
+    console.log(id);
 
     fs.readFile(dbPath, "utf8", (err, data) => {
-        const db = JSON.parse(data)
+        let db = JSON.parse(data)
 
         db = db.filter(el => {
+            console.log(el.id);
             return el.id !== id
         })
 
