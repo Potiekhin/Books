@@ -3,6 +3,7 @@ const bodyParser = require("body-parser")
 const path = require('path')
 const fs = require("fs")
 const cors = require("cors")
+const { nanoid } = require('nanoid')
 
 const app = express()
 const PORT = 8888
@@ -27,8 +28,9 @@ app.post("/", (req, res) => {
 
     fs.readFile(dbPath, "utf8", (err, data) => {
         const db = JSON.parse(data)
-        console.log(db)
-        db.push(req.body)
+        const obj = {id: nanoid()}
+        obj.book = req.body
+        db.push(obj)
         const json = JSON.stringify(db)
         fs.writeFile(dbPath, json, 'utf8', (err, data) => {
             res.send(json)
