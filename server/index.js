@@ -28,7 +28,7 @@ app.post("/", (req, res) => {
 
     fs.readFile(dbPath, "utf8", (err, data) => {
         const db = JSON.parse(data)
-        const obj = {id: nanoid()}
+        const obj = { id: nanoid() }
         obj.book = req.body
         db.push(obj)
         const json = JSON.stringify(db)
@@ -40,8 +40,8 @@ app.post("/", (req, res) => {
 });
 
 app.delete("/:id", (req, res) => {
+
     const { id } = req.params
-    console.log(id);
 
     fs.readFile(dbPath, "utf8", (err, data) => {
         let db = JSON.parse(data)
@@ -59,5 +59,31 @@ app.delete("/:id", (req, res) => {
     });
 
 });
+
+app.put("/:id", (req, res) => {
+
+    const { id } = req.params
+    
+    if (!req.body) {
+        return res.sendStatus(400)
+    }
+
+    fs.readFile(dbPath, "utf8", (err, data) => {
+        let db = JSON.parse(data)
+
+        db.forEach(el => {
+            if(el.id === id){
+                el.book = req.body
+                return res.send(JSON.stringify(el))
+            }
+        });
+
+        const json = JSON.stringify(db)
+
+        fs.writeFile(dbPath, json, 'utf8', (err, data) => {
+            res.send(json)
+        })
+    });
+})
 
 app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
