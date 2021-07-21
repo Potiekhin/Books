@@ -63,7 +63,7 @@ app.delete("/:id", (req, res) => {
 app.put("/:id", (req, res) => {
 
     const { id } = req.params
-    
+
     if (!req.body) {
         return res.sendStatus(400)
     }
@@ -72,7 +72,7 @@ app.put("/:id", (req, res) => {
         let db = JSON.parse(data)
 
         db.forEach(el => {
-            if(el.id === id){
+            if (el.id === id) {
                 el.book = req.body
                 return res.send(JSON.stringify(el))
             }

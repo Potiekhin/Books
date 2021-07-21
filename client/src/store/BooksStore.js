@@ -9,7 +9,7 @@ class BooksStore {
         fetch('http://localhost:8888')
             .then(res => res.json())
             .then(json => {
-                this.books = [...this.books, ...json]
+                this.books = json
             })
     }
 }
