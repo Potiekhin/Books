@@ -1,54 +1,41 @@
-import React from 'react'
+import React, {useRef} from 'react'
+import { observer } from 'mobx-react-lite'
+import BooksStore from './store/BooksStore'
 import Form from 'react-bootstrap/Form'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
-import InputGroup from 'react-bootstrap/InputGroup'
-import FormControl from 'react-bootstrap/FormControl'
 import Button from 'react-bootstrap/Button'
 
-function Book() {
+const Book = observer(() => {
+
+    const {addBook} = BooksStore
+
+    const nameRef = useRef('')
+    const authorRef = useRef('')
+
     return (
         <div>
             <Form>
                 <Row className="align-items-center">
                     <Col xs="auto">
                         <Form.Control
-                            id="inlineFormInput"
+                            id="name"
                             placeholder="Name"
+                            ref={nameRef}
                         />
                     </Col>
                     <Col xs="auto">
                         <Form.Control
-                            id="inlineFormInput"
+                            id="author"
                             placeholder="Author"
+                            ref={authorRef}
                         />
                     </Col>
                     <Col xs="auto">
-                        <Form.Control
-                            id="inlineFormInput"
-                            placeholder="Genre"
-                        />
-                    </Col>
-                    <Col xs="auto">
-                        <Form.Control
-                            id="inlineFormInput"
-                            placeholder="Jane Doe"
-                        />
-                    </Col>
-                    <Col xs="auto">
-                        <Form.Control
-                            id="inlineFormInput"
-                            placeholder="Jane Doe"
-                        />
-                    </Col>
-                    <Col xs="auto">
-                        <Form.Control
-                            id="inlineFormInput"
-                            placeholder="Jane Doe"
-                        />
-                    </Col>
-                    <Col xs="auto">
-                        <Button type="submit">
+                        <Button 
+                        onClick={()=> addBook({"name":nameRef.current.value, "author": authorRef.current.value})}
+                        type="submit"
+                        >
                             Submit
                         </Button>
                     </Col>
@@ -56,6 +43,6 @@ function Book() {
             </Form>
         </div>
     )
-}
+})
 
 export default Book
