@@ -7,7 +7,7 @@ import Book from './Book'
 const Books = observer(() => {
 
     const [add, setAdd] = useState(false)
-    const { books } = BooksStore
+    const { books, deleteBook } = BooksStore
 
     return (
         <div>
@@ -17,7 +17,7 @@ const Books = observer(() => {
             }
             <div> {books.length > 0 && books.map((el, index) => (
                 <div key={index}>
-                    <div>{`name-${el.book.name} author-${el.book.author}`}</div>
+                    <div>{`name-${el.book.name} author-${el.book.author}`}<Button onClick={()=>deleteBook(el.id)} className='mx-3'>x</Button></div>
                 </div>
             ))} </div>
         </div >

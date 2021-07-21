@@ -4,7 +4,7 @@ class BooksStore {
     books = []
     constructor() {
         makeAutoObservable(this, {}, { autoBind: true })
-        if(!this.books.length){this.getBooks()}
+        if (!this.books.length) { this.getBooks() }
     }
     getBooks() {
         fetch('http://localhost:8888')
@@ -12,7 +12,7 @@ class BooksStore {
             .then(json => {
                 this.books = json
             })
-            
+
     }
 
     addBook(data) {
@@ -20,13 +20,26 @@ class BooksStore {
             method: 'POST',
             body: JSON.stringify(data),
             headers: {
-              'Content-Type': 'application/json'
+                'Content-Type': 'application/json'
             }
-          })
-          .then(res => res.json())
-          .then(json => {
-              this.getBooks()
-          })
+        })
+            .then(res => res.json())
+            .then(json => {
+                this.getBooks()
+            })
+    }
+
+    deleteBook(id) {
+        fetch(`http://localhost:8888/${id}`,{
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(res => res.json())
+        .then(json => {
+            this.getBooks()
+        })
     }
 }
 
