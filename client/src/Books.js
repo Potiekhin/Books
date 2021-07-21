@@ -4,11 +4,10 @@ import BooksStore from './store/BooksStore'
 
 const Books = observer(() => {
     const { books, getBooks } = BooksStore
-    console.log(JSON.stringify(books));
     return ( <
         div >
         <
-        button onClick = { getBooks } > get users < /button>   <
+        button onClick = { getBooks } > get books < /button>   <
         div > { books.length > 0 && JSON.stringify(books) } < /div>   < /
         div >
     )
