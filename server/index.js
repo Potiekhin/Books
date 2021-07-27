@@ -56,7 +56,9 @@ app.delete("/:id", (req, res) => {
         let db = JSON.parse(data)
 
         db = db.filter(el => {
-            console.log(el.id);
+            if (el.id === id) {
+                fs.unlinkSync(el.book.picture)
+            }
             return el.id !== id
         })
 
@@ -82,7 +84,13 @@ app.put("/:id", (req, res) => {
 
         db.forEach(el => {
             if (el.id === id) {
+                fs.unlinkSync(el.book.picture)
                 el.book = req.body
+                const file = req.files.picture
+                const fileName = nanoid() + '.jpg'
+                const filePath = path.resolve('static', fileName)
+                file.mv(filePath)
+                el.book.picture = filePath
                 return res.send(JSON.stringify(el))
             }
         });

@@ -1,31 +1,10 @@
 [
     {
-<<<<<<< HEAD
-        "id": "Wfqv7RD7Vhq9DgyJcdDfA",
+        "id": "XL4LFF0CXPCETneMscpih",
         "book": {
-            "name": "vasia",
-            "book": "some book",
-            "picture": "/home/oleh/Desktop/code/Books/server/static/Qqb_CoxMFputrUbXWoQ3E.jpg"
-=======
-        "id": "UDuBKOVXr5bsxEdvJ-OtK",
-        "book": {
-            "name": "Путін Хуйло",
-            "author": "Український Народ"
-        }
-    },
-    {
-        "id": "zKidAHNj_2dfA-kBcFdr7",
-        "book": {
-            "name": "Путін Хуйло",
-            "author": "Український Народ"
-        }
-    },
-    {
-        "id": "dZDWGEW6cKGyMy33po7yi",
-        "book": {
-            "name": "Mi Gaming Laptop",
-            "author": "Кріїни Світу"
->>>>>>> d4f1f055adb41952bec7168a7b3b38de1fe08087
+            "nametttt": "vasia",
+            "rrrrr": "some book",
+            "picture": "/home/oleh/Desktop/code/Books/server/static/gA3bna_qsdpZa3GAqF7nu.jpg"
         }
     }
 ]
