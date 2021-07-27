@@ -4,15 +4,19 @@ const path = require('path')
 const fs = require("fs")
 const cors = require("cors")
 const { nanoid } = require('nanoid')
+const fileUpload = require('express-fileupload')
+
 
 const app = express()
 const PORT = 8888
 
-app.use(bodyParser.urlencoded({ extended: false }))
-app.use(bodyParser.json())
+app.use(express.json())
 app.use(cors())
+app.use(express.static('static'))
+app.use(fileUpload({}))
 
 const dbPath = path.join(__dirname, 'db.json')
+const filePath = path.dirname('photos')
 
 app.get("/", (req, res) => {
     fs.readFile(dbPath, (err, json) => {
@@ -30,6 +34,11 @@ app.post("/", (req, res) => {
         const db = JSON.parse(data)
         const obj = { id: nanoid() }
         obj.book = req.body
+        const file = req.files.picture
+        const fileName = nanoid() + '.jpg'
+        const filePath = path.resolve('static', fileName)
+        file.mv(filePath)
+        obj.book.picture = filePath
         db.push(obj)
         const json = JSON.stringify(db)
         fs.writeFile(dbPath, json, 'utf8', (err, data) => {

@@ -1,1 +1,10 @@
-[{"id":"te2sV0GY2AMdUv5vTi0g2","book":{"name":"Some Shit2","author":"rrrr"}},{"id":"BeGDCDAkCugQGKE4RMT6k","book":{"name":"iiiiiii","author":"oooooo"}},{"id":"-3Ff3UmdaiZrwBlABHqOG","book":{"name":"vasia","author":"tu kitai"}}]
+[
+    {
+        "id": "Wfqv7RD7Vhq9DgyJcdDfA",
+        "book": {
+            "name": "vasia",
+            "book": "some book",
+            "picture": "/home/oleh/Desktop/code/Books/server/static/Qqb_CoxMFputrUbXWoQ3E.jpg"
+        }
+    }
+]
