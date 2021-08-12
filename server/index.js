@@ -1,22 +1,20 @@
 const express = require("express")
-const bodyParser = require("body-parser")
 const path = require('path')
 const fs = require("fs")
 const cors = require("cors")
 const { nanoid } = require('nanoid')
 const fileUpload = require('express-fileupload')
 
-
 const app = express()
 const PORT = 8888
 
 app.use(express.json())
 app.use(cors())
-app.use(express.static('static'))
+app.use(express.static('public'))
 app.use(fileUpload({}))
 
 const dbPath = path.join(__dirname, 'db.json')
-const filePath = path.dirname('photos')
+const imgFolderPath = path.resolve('../client/public/img')
 
 app.get("/", (req, res) => {
     fs.readFile(dbPath, (err, json) => {
@@ -36,9 +34,9 @@ app.post("/", (req, res) => {
         obj.book = req.body
         const file = req.files.picture
         const fileName = nanoid() + '.jpg'
-        const filePath = path.resolve('static', fileName)
+        const filePath = path.resolve(imgFolderPath, fileName)
         file.mv(filePath)
-        obj.book.picture = filePath
+        obj.book.picture = fileName
         db.push(obj)
         const json = JSON.stringify(db)
         fs.writeFile(dbPath, json, 'utf8', (err, data) => {
@@ -54,10 +52,10 @@ app.delete("/:id", (req, res) => {
 
     fs.readFile(dbPath, "utf8", (err, data) => {
         let db = JSON.parse(data)
-
         db = db.filter(el => {
             if (el.id === id) {
-                fs.unlinkSync(el.book.picture)
+                const filePath = path.resolve(imgFolderPath, el.book.picture)
+                fs.unlinkSync(filePath)
             }
             return el.id !== id
         })
@@ -84,13 +82,14 @@ app.put("/:id", (req, res) => {
 
         db.forEach(el => {
             if (el.id === id) {
-                fs.unlinkSync(el.book.picture)
+                const oldFilePath = path.resolve(imgFolderPath, el.book.picture)
+                fs.unlinkSync(oldFilePath)
                 el.book = req.body
                 const file = req.files.picture
                 const fileName = nanoid() + '.jpg'
-                const filePath = path.resolve('static', fileName)
+                const filePath = path.resolve(imgFolderPath, fileName)
                 file.mv(filePath)
-                el.book.picture = filePath
+                el.book.picture = fileName
                 return res.send(JSON.stringify(el))
             }
         });
@@ -98,7 +97,7 @@ app.put("/:id", (req, res) => {
         const json = JSON.stringify(db)
 
         fs.writeFile(dbPath, json, 'utf8', (err, data) => {
-            res.send(json)
+            // res.send(json)
         })
     });
 })
