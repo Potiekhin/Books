@@ -25,14 +25,14 @@ const ChangeBook = observer((props) => {
     const changeBook = async (e) => {
         e.preventDefault()
         const formData = new FormData()
-        formData.append('author', author)
-        formData.append('name', name)
-        formData.append('genre', genre)
-        formData.append('seria', seria)
-        formData.append('language', language)
-        formData.append('summary', summary)
-        formData.append('note', note)
-        formData.append('picture', picture)
+        formData.append('author', author.trim())
+        formData.append('name', name.trim())
+        formData.append('genre', genre.trim())
+        formData.append('seria', seria.trim())
+        formData.append('language', language.trim())
+        formData.append('summary', summary.trim())
+        formData.append('note', note.trim())
+        formData.append('picture', picture.trim())
 
         await axios({
             method: "put",
