@@ -3,12 +3,20 @@ import { observer } from 'mobx-react-lite'
 import BooksStore from './store/BooksStore'
 import AddBook from './AddBook'
 import ChangeBook from './ChangeBook'
+import ShowImg from './ShowImg'
 
 const Books = observer(() => {
 
     const [editMode, setEditMode] = useState(false)
     const [searchTeg, setSearchTeg] = useState('')
-    
+    const [show, setShow] = useState(false);
+    const [picture, setPicture] = useState('')
+
+    const handleClose = () => setShow(false);
+    const handleShow = (picture) => {
+        setShow(true)
+        setPicture(picture);
+    }
 
     const { books, getBooks, deleteBook, sortByField } = BooksStore
 
@@ -39,7 +47,7 @@ const Books = observer(() => {
                 </div>
                 {
                     books.length ? books.map((book, index) => (
-                        Object.values(book.book).slice(0, -1).join().toLocaleLowerCase().includes(searchTeg) && 
+                        Object.values(book.book).slice(0, -1).join().toLocaleLowerCase().includes(searchTeg) &&
                         <div key={book.id} className='row'>
                             <div className=' d-flex justify-content-center align-items-center col text-center border border-dark '>{index + 1}</div>
                             <div className=' d-flex justify-content-center align-items-center col text-center border border-dark '>{book.book.author}</div>
@@ -48,7 +56,12 @@ const Books = observer(() => {
                             <div className=' d-flex justify-content-center align-items-center col text-center border border-dark '>{book.book.seria}</div>
                             <div className=' d-flex justify-content-center align-items-center col text-center border border-dark '>{book.book.language}</div>
                             <div className=' d-flex justify-content-center align-items-center col-3 text-center border border-dark '>{book.book.summary}</div>
-                            <div className=' d-flex justify-content-center align-items-center col text-center border border-dark '><img style={{ height: 50 }} src={'img/' + book.book.picture} alt='' /></div>
+                            <div className=' d-flex justify-content-center align-items-center col text-center border border-dark '>
+                                <img
+                                    onClick={()=>handleShow('img/' + book.book.picture)}
+                                    style={{ height: 50 }} src={'img/' + book.book.picture} alt='' />
+                                {show && <ShowImg show={true} handleShow={handleShow} handleClose={handleClose} picture={picture} />}
+                            </div>
                             <div className=' d-flex justify-content-center align-items-center col text-center border border-dark '>{book.book.note}</div>
                             {editMode && <div className='  d-flex align-items-center col text-center border border-dark justify-content-evenly'>
                                 <ChangeBook
@@ -64,10 +77,12 @@ const Books = observer(() => {
                                 <button onClick={() => deleteBook(book.id)} className='btn btn-outline-danger'>x</button>
                             </div>}
                         </div>
-                        
+
                     ))
-                    : <h2 className='d-flex justify-content-center mt-5'>В книгарні пусто</h2>
+                        : <h2 className='d-flex justify-content-center mt-5'>В книгарні пусто</h2>
+
                 }
+
             </div>
 
         </div >
