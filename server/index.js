@@ -32,11 +32,15 @@ app.post("/", (req, res) => {
         const db = JSON.parse(data)
         const obj = { id: nanoid() }
         obj.book = req.body
-        const file = req.files.picture
-        const fileName = nanoid() + '.jpg'
-        const filePath = path.resolve(imgFolderPath, fileName)
-        file.mv(filePath)
-        obj.book.picture = fileName
+        try {
+            const file = req.files.picture
+            const fileName = nanoid() + '.jpg'
+            const filePath = path.resolve(imgFolderPath, fileName)
+            file.mv(filePath)
+            obj.book.picture = fileName
+        } catch (e) {
+            console.log(e);
+        }
         db.push(obj)
         const json = JSON.stringify(db)
         fs.writeFile(dbPath, json, 'utf8', (err, data) => {
@@ -82,14 +86,22 @@ app.put("/:id", (req, res) => {
 
         db.forEach(el => {
             if (el.id === id) {
-                const oldFilePath = path.resolve(imgFolderPath, el.book.picture)
-                fs.unlinkSync(oldFilePath)
+                try {
+                    const oldFilePath = path.resolve(imgFolderPath, el.book.picture)
+                    fs.unlinkSync(oldFilePath)
+                } catch (e) {
+                    console.log(e);
+                }
                 el.book = req.body
-                const file = req.files.picture
-                const fileName = nanoid() + '.jpg'
-                const filePath = path.resolve(imgFolderPath, fileName)
-                file.mv(filePath)
-                el.book.picture = fileName
+                try {
+                    const file = req.files.picture
+                    const fileName = nanoid() + '.jpg'
+                    const filePath = path.resolve(imgFolderPath, fileName)
+                    file.mv(filePath)
+                    el.book.picture = fileName
+                } catch (e) {
+                    console.log(e);
+                }
                 return res.send(JSON.stringify(el))
             }
         });

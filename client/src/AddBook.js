@@ -80,7 +80,7 @@ const AddBook = observer(() => {
                     <input className='form-control mb-2' name='picture' type='file' onChange={e => setPicture(e.target.files[0])} />
                 </form></Modal.Body>
                 <Modal.Footer>
-                    <Button variant="primary" onClick={e => addBook(e)}>
+                    <Button variant="primary" disabled={picture ? false : true} onClick={e => addBook(e)}>
                         add
                     </Button>
                 </Modal.Footer>

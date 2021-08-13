@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import { observer } from 'mobx-react-lite'
-// import Table from 'react-bootstrap/Table'
 import BooksStore from './store/BooksStore'
 import AddBook from './AddBook'
 import ChangeBook from './ChangeBook'

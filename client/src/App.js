@@ -1,13 +1,9 @@
 import React from 'react';
-import Table from './Table';
 import Books from './Books'
 
 const App = () => {
     return (
-        <>
-            {/* <Table /> */}
-            <Books />
-        </>
+        <Books />
     )
 }
 export default App;

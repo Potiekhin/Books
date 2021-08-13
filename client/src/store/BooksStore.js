@@ -19,19 +19,7 @@ class BooksStore {
         await axios.delete(this.url+id)
         this.getBooks()
     }
-    ///////////////////////
-    // sortByField(array, field) {
-    //     array.sort((a, b)=>{
-    //         if(a.book[field].toLowerCase() < b.book[field].toLowerCase()) {
-    //             return -1
-    //         }
-    //         if(a.book[field].toLowerCase() > b.book[field].toLowerCase()) {
-    //             return 1
-    //         }
-    //         return 0
-    //     })
-    //     this.books = array 
-    // }
+
     sortByField(field) {
         this.books.sort((a, b)=>{
             if(a.book[field].toLowerCase() < b.book[field].toLowerCase()) {
