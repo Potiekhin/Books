@@ -26,7 +26,7 @@ const Books = observer(() => {
 
     return (
         <div>
-            <nav className="navbar navbar-dark bg-light justify-content-evenly mt-3 pb-0">
+            <nav className="navbar navbar-dark justify-content-evenly mt-3 pb-0">
                 <input onChange={e => setSearchTeg(e.target.value)} className='form-control w-25' placeholder='search' type='text' />
                 <button onClick={() => setEditMode(!editMode)} className='btn btn-outline-primary'>edit mode</button>
                 <AddBook />

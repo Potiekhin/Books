@@ -32,7 +32,7 @@ const ChangeBook = observer((props) => {
         formData.append('language', language.trim())
         formData.append('summary', summary.trim())
         formData.append('note', note.trim())
-        formData.append('picture', picture.trim())
+        formData.append('picture', picture)
 
         await axios({
             method: "put",
