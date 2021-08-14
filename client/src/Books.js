@@ -28,7 +28,7 @@ const Books = observer(() => {
         <div>
             <nav className="navbar navbar-dark justify-content-evenly mt-3 pb-0">
                 <input onChange={e => setSearchTeg(e.target.value)} className='form-control w-25' placeholder='search' type='text' />
-                <button onClick={() => setEditMode(!editMode)} className='btn btn-outline-primary'>edit mode</button>
+                <button onClick={() => setEditMode(!editMode)} className='btn btn-outline-primary'>Редагувати</button>
                 <AddBook />
             </nav>
 
@@ -43,7 +43,7 @@ const Books = observer(() => {
                     <div onClick={() => sortByField('summary')} style={{ fontWeight: 'bold' }} className='col-3 btn btn-outline-dark rounded-0'>Анотація</div>
                     <div style={{ fontWeight: 'bold' }} className='col btn btn-outline-dark rounded-0'>Титулка</div>
                     <div onClick={() => sortByField('note')} style={{ fontWeight: 'bold' }} className='col btn btn-outline-dark rounded-0'>Примітка</div>
-                    {editMode && <div onClick={() => sortByField('note')} style={{ fontWeight: 'bold' }} className='col btn btn-outline-dark rounded-0'>edit</div>}
+                    {editMode && <div onClick={() => sortByField('note')} style={{ fontWeight: 'bold' }} className='col btn btn-outline-dark rounded-0'>Змінити</div>}
                 </div>
                 {
                     books.length ? books.map((book, index) => (

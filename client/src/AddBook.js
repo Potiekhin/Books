@@ -62,12 +62,12 @@ const AddBook = observer(() => {
         <>
 
             <Button variant="outline-primary" onClick={handleShow}>
-                add book
+                Додати книгу
             </Button>
 
             <Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton>
-                    <Modal.Title>add book</Modal.Title>
+                    <Modal.Title>Додати книгу</Modal.Title>
                 </Modal.Header>
                 <Modal.Body><form>
                     <input className='form-control mb-2' placeholder='Автор' name='author' value={author} onChange={e => setAuthor(e.target.value)} type='text' />
@@ -81,7 +81,7 @@ const AddBook = observer(() => {
                 </form></Modal.Body>
                 <Modal.Footer>
                     <Button variant="primary" disabled={picture ? false : true} onClick={e => addBook(e)}>
-                        add
+                        Додати
                     </Button>
                 </Modal.Footer>
             </Modal>

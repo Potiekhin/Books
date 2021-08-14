@@ -46,11 +46,11 @@ const ChangeBook = observer((props) => {
 
     return (
         <>
-            <button onClick={handleShow} className='btn btn-outline-primary'>edit</button>
+            <button onClick={handleShow} className='btn btn-outline-primary'>Змінити</button>
 
             <Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton>
-                    <Modal.Title>change book</Modal.Title>
+                    <Modal.Title>Змінити кингу</Modal.Title>
                 </Modal.Header>
                 <Modal.Body><form>
                     <input className='form-control mb-2' placeholder='Автор' name='author' value={author} onChange={e => setAuthor(e.target.value)} type='text' />
@@ -71,7 +71,7 @@ const ChangeBook = observer((props) => {
                    <Button 
                    disabled={picture ? false : true}
                    variant="primary" onClick={e => changeBook(e)}>
-                        change
+                        Змінити
                     </Button>
                 </Modal.Footer>
             </Modal>
