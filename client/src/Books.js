@@ -3,19 +3,24 @@ import { observer } from 'mobx-react-lite'
 import BooksStore from './store/BooksStore'
 import AddBook from './AddBook'
 import ChangeBook from './ChangeBook'
-import ShowImg from './ShowImg'
+import ShowModal from './ShowModal'
 
 const Books = observer(() => {
 
     const [editMode, setEditMode] = useState(false)
     const [searchTeg, setSearchTeg] = useState('')
-    const [show, setShow] = useState(false);
+    const [showImg, setShowImg] = useState(false)
+    const [showText, setShowText] = useState(false)
     const [picture, setPicture] = useState('')
+    const [summary, setSummary] = useState('')
 
-    const handleClose = () => setShow(false);
-    const handleShow = (picture) => {
-        setShow(true)
-        setPicture(picture);
+    const handleClose = () => {
+        setShowImg(false)
+        setShowText(false)
+    };
+    const handleShow = (showType, setType, data) => {
+        showType(true)
+        setType(data);
     }
 
     const { books, getBooks, deleteBook, sortByField } = BooksStore
@@ -27,7 +32,7 @@ const Books = observer(() => {
     return (
         <div>
             <nav className="navbar navbar-dark justify-content-evenly mt-3 pb-0">
-                <input onChange={e => setSearchTeg(e.target.value)} className='form-control w-25' placeholder='search' type='text' />
+                <input onChange={e => setSearchTeg(e.target.value)} className='form-control w-25' placeholder='Пошук' type='text' />
                 <button onClick={() => setEditMode(!editMode)} className='btn btn-outline-primary'>Редагувати</button>
                 <AddBook />
             </nav>
@@ -55,12 +60,21 @@ const Books = observer(() => {
                             <div className=' d-flex justify-content-center align-items-center col text-center border border-dark '>{book.book.genre}</div>
                             <div className=' d-flex justify-content-center align-items-center col text-center border border-dark '>{book.book.seria}</div>
                             <div className=' d-flex justify-content-center align-items-center col text-center border border-dark '>{book.book.language}</div>
-                            <div className=' d-flex justify-content-center align-items-center col-3 text-center border border-dark '>{book.book.summary}</div>
+                            <div
+
+                                className=' d-flex justify-content-center align-items-center col-3 text-center border border-dark text-truncate'>
+                                <span
+                                    onClick={() => handleShow(setShowText, setSummary, book.book.summary)}
+                                    className="d-inline-block text-truncate" style={{ maxWidth: '500px' }}>
+                                    {book.book.summary}
+                                </span>
+                                {showText && <ShowModal show={true} handleShow={handleShow} handleClose={handleClose} summary={summary} />}
+                            </div>
                             <div className=' d-flex justify-content-center align-items-center col text-center border border-dark '>
                                 <img
-                                    onClick={()=>handleShow('img/' + book.book.picture)}
+                                    onClick={() => handleShow(setShowImg, setPicture, 'img/' + book.book.picture)}
                                     style={{ height: 50 }} src={'img/' + book.book.picture} alt='' />
-                                {show && <ShowImg show={true} handleShow={handleShow} handleClose={handleClose} picture={picture} />}
+                                {showImg && <ShowModal show={true} handleShow={handleShow} handleClose={handleClose} picture={picture} />}
                             </div>
                             <div className=' d-flex justify-content-center align-items-center col text-center border border-dark '>{book.book.note}</div>
                             {editMode && <div className='  d-flex align-items-center col text-center border border-dark justify-content-evenly'>
